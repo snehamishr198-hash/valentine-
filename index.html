@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Surprise</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(180deg, #070b24, #2b1055, #ffb3c6);
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+/* ========== MIDNIGHT STARS ========== */
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 3s infinite ease-in-out;
+  z-index: 0;
+}
+
+@keyframes twinkle {
+  0%,100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+/* ========== GOLDEN GLITTER ========== */
+.glitter {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: radial-gradient(circle, #fff6c7, #ffd700);
+  border-radius: 50%;
+  box-shadow: 0 0 14px gold;
+  animation: sparkle 3.5s infinite ease-in-out;
+  z-index: 0;
+}
+
+@keyframes sparkle {
+  0% { transform: scale(0.4); opacity: 0.3; }
+  50% { transform: scale(1.6); opacity: 1; }
+  100% { transform: scale(0.4); opacity: 0.3; }
+}
+
+/* ========== SHOOTING STAR ========== */
+.shooting-star {
+  position: absolute;
+  top: 20%;
+  left: -30%;
+  width: 160px;
+  height: 2px;
+  background: linear-gradient(90deg, white, transparent);
+  opacity: 0;
+  animation: shoot 2.5s ease-out forwards;
+  z-index: 2;
+}
+
+@keyframes shoot {
+  0% {
+    transform: translate(0, 0) rotate(25deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(140vw, 60vh) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+/* ========== HEART BALLOONS ========== */
+.heart {
+  position: absolute;
+  bottom: -80px;
+  width: 50px;
+  height: 50px;
+  transform: rotate(-45deg);
+  animation: floatUp 14s linear infinite;
+  opacity: 0.9;
+  z-index: 1;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.heart::before { top: -25px; left: 0; }
+.heart::after { left: 25px; top: 0; }
+
+.red { background: #ff4d6d; left: 20%; }
+.pink { background: #ffb3c6; left: 50%; animation-delay: 3s; }
+.white { background: #ffffff; left: 80%; animation-delay: 6s; }
+
+@keyframes floatUp {
+  from { transform: translateY(0) rotate(-45deg); }
+  to { transform: translateY(-120vh) rotate(-45deg); }
+}
+
+/* ========== TEXT ========== */
+#text-box {
+  position: absolute;
+  top: 42%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 10;
+}
+
+.message {
+  font-family: 'Brush Script MT', cursive;
+  color: white;
+  text-shadow: 0 0 20px rgba(255,182,193,0.9);
+  opacity: 0;
+  transition: opacity 2.5s ease;
+  text-align: center;
+}
+
+#msg1 { font-size: 2.4rem; }
+#msg2 { font-size: 2.1rem; }
+
+/* ========== HEART POP ========== */
+.pop {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  transform: rotate(-45deg);
+  animation: pop 1.6s ease-out forwards;
+  z-index: 9;
+}
+
+.pop::before,
+.pop::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.pop::before { top: -7px; left: 0; }
+.pop::after { left: 7px; top: 0; }
+
+@keyframes pop {
+  from { transform: translateY(0) rotate(-45deg); opacity: 1; }
+  to { transform: translateY(-160px) rotate(-45deg); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEART BALLOONS -->
+<div class="heart red"></div>
+<div class="heart pink"></div>
+<div class="heart white"></div>
+
+<!-- TEXT -->
+<div id="text-box">
+  <div id="msg1" class="message">Happy Valentine’s Day, Kashu 🤍</div>
+  <div id="msg2" class="message">I love you — always, quietly, completely</div>
+</div>
+
+<script>
+// TEXT TIMING
+setTimeout(() => {
+  document.getElementById("msg1").style.opacity = 1;
+}, 1800);
+
+setTimeout(() => {
+  document.getElementById("msg2").style.opacity = 1;
+  popHearts();
+}, 4500);
+
+// SHOOTING STAR (ONE TIME ✨)
+setTimeout(() => {
+  const star = document.createElement("div");
+  star.className = "shooting-star";
+  document.body.appendChild(star);
+}, 5200);
+
+// MIDNIGHT STARS
+for (let i = 0; i < 120; i++) {
+  const s = document.createElement("div");
+  s.className = "star";
+  s.style.left = Math.random() * 100 + "vw";
+  s.style.top = Math.random() * 100 + "vh";
+  s.style.animationDelay = Math.random() * 3 + "s";
+  document.body.appendChild(s);
+}
+
+// GOLDEN GLITTER
+for (let i = 0; i < 90; i++) {
+  const g = document.createElement("div");
+  g.className = "glitter";
+  g.style.left = Math.random() * 100 + "vw";
+  g.style.top = Math.random() * 100 + "vh";
+  g.style.animationDelay = Math.random() * 4 + "s";
+  document.body.appendChild(g);
+}
+
+// HEART POP
+function popHearts() {
+  const colors = ["#ff4d6d", "#ffb3c6", "#ffd700"];
+  for (let i = 0; i < 25; i++) {
+    const heart = document.createElement("div");
+    heart.className = "pop";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "62%";
+    heart.style.background = colors[Math.floor(Math.random() * colors.length)];
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 1600);
+  }
+}
+</script>
+
+</body>
+</html>
